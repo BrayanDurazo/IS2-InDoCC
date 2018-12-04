@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver/Editar estrategias</title>
+</head>
+<body>
+    <script>
+		function edit() {
+            document.getElementById('fieldsetForm').disabled = false;
+            document.getElementById('title').innerText="Editar estrategias";
+            document.getElementById('editB').hidden = true;
+            document.getElementById('submit').hidden = false;
+            document.getElementById('clean').hidden = false;
+		}
+	</script>
+
+
+    <h1 id="title">Ver estrategias</h1>
+	<form action="" method="post" id="estrategia" >
+		{% csrf_token %}
+
+        <fieldset disabled id="fieldsetForm">
+            <label>¿El programa cuenta con una estrategia para que todos los docentes que participan en él conozcan la relación, importancia y enfoque de todas y cada una de las asignaturas que lo forman para poder dar la orientación adecuada a la asignatura que imparten?:</label><br>
+            {% if estrategia.Hay_estrategia_asignaturas %}
+                <input type="radio" name="{{form.Hay_estrategia_asignaturas.name}}" value=true required="true" checked="true"> Si<br>
+                <input type="radio" name="{{form.Hay_estrategia_asignaturas.name}}" value=false required="true"> No<br>
+            {% else %}
+                <input type="radio" name="{{form.Hay_estrategia_asignaturas.name}}" value=true required="true"> Si<br>
+                <input type="radio" name="{{form.Hay_estrategia_asignaturas.name}}" value=false required="true" checked="true"> No<br>
+            {% endif %}
+
+            <label>¿El programa cuenta con al menos una estrategia, para promover que todos los docentes que se forman en posgrado, tenga relación con las necesidades del programa educativo, desarrollo de cuerpos académicos y líneas de investigación, de manera que se resuelvan las brechas académicas del programa?</label></input><br>
+            {% if estrategia.Hay_estrategia_posgrado %}
+                <input type="radio" name="{{form.Hay_estrategia_posgrado.name}}" value=true required="true" checked="true"> Si<br>
+                <input type="radio" name="{{form.Hay_estrategia_posgrado.name}}" value=false required="true"> No<br>
+            {% else %}
+                <input type="radio" name="{{form.Hay_estrategia_posgrado.name}}" value=true required="true"> Si<br>
+                <input type="radio" name="{{form.Hay_estrategia_posgrado.name}}" value=false required="true" checked="true"> No<br>
+            {% endif %}
+
+            <label>Describir en qué consisten la o las estrategias institucionales:</label><br>
+            <textarea name="Descripcion" form="estrategia">{{estrategia.Descripcion}}</textarea><br>
+        </fieldset>
+        <button type="submit" name="Enviar" id="submit" hidden>Enviar</button>
+	</form>
+    <button type="button" onclick="javascript:edit();" name="Editar" id="editB">Editar</button>
+</body>
+</html>
