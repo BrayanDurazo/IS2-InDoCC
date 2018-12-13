@@ -1,6 +1,4 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.views.generic import TemplateView
 from Estrategias.forms import EstrategiaForm
 from Estrategias.models import Estrategia

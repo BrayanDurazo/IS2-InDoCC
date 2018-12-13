@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicializar Cursos</title>
+</head>
+<body>
+	<script>
+		function yesnoCheck() {
+            if (document.getElementById('yesCheck').checked){
+				document.getElementById('descripcion_modalidad').style.display = 'block';
+				document.getElementById('descripcion_modalidad2').required = true;
+			}else if(document.getElementById('noCheck').checked){
+                document.getElementById('descripcion_modalidad2').value = '';
+                document.getElementById('descripcion_modalidad2').required = false;
+                document.getElementById('descripcion_modalidad').style.display = 'none';
+            }
+            if (document.getElementById('yesCheck2').checked){
+				document.getElementById('nivel_responsabilidad').style.display = 'block';
+				document.getElementById('nivel_responsabilidad2').required = true;
+                document.getElementById('descripcion_formacion').required = true;
+			}else if(document.getElementById('noCheck2').checked){
+                document.getElementById('nivel_responsabilidad2').value = 'Institucional';
+                document.getElementById('nivel_responsabilidad2').required = false;
+                document.getElementById('descripcion_formacion').value = '';
+                document.getElementById('descripcion_formacion').required = false;
+				document.getElementById('nivel_responsabilidad').style.display = 'none';
+            }
+			if (document.getElementById('yesCheck3').checked){
+				for(var i = 0 ; i < formprogramaCached.length ; i++){
+					formprogramaCached[i].style.display = 'block';
+					formprogramaCached[i].required = true;
+				}
+				document.getElementById("formprogramaTablaBtn").style.display = 'block';
+				document.getElementById("formprogramaTablaBtn2").style.display = 'block';
+				document.getElementById("formprogramaTablaNumber").value = formprogramaCached.length
+			}else if(document.getElementById('noCheck3').checked){
+			    for(var i = 0 ; i < formprogramaCached.length ; i++){
+                    formprogramaCached[i].value = null;
+					formprogramaCached[i].required = false;
+					formprogramaCached[i].style.display = 'none';
+				}
+				document.getElementById("formprogramaTablaBtn").style.display = 'none';
+				document.getElementById("formprogramaTablaBtn2").style.display = 'none';
+				document.getElementById("formprogramaTablaNumber").value = 0;
+            }
+		    if (document.getElementById('yesCheck4').checked){
+				for(var i = 0 ; i < formcursoCached.length ; i++){
+					formcursoCached[i].style.display = 'block';
+					formcursoCached[i].required = true;
+				}
+				document.getElementById("formcursoTablaBtn").style.display = 'block';
+				document.getElementById("formcursoTablaBtn2").style.display = 'block';
+				document.getElementById("formcursoTablaNumber").value = formcursoCached.length
+			}else if(document.getElementById('noCheck4').checked){
+			    for(var i = 0 ; i < formcursoCached.length ; i++){
+                    formcursoCached[i].value = null;
+					formcursoCached[i].required = false;
+					formcursoCached[i].style.display = 'none';
+				}
+				document.getElementById("formcursoTablaBtn").style.display = 'none';
+				document.getElementById("formcursoTablaBtn2").style.display = 'none';
+				document.getElementById("formcursoTablaNumber").value = 0;
+            }
+		}
+		
+		document.addEventListener("DOMContentLoaded", function(){
+		  formprogramaCached = [document.getElementById("tabla-")];
+		  formprogramaSkeleton = formprogramaCached[0].cloneNode(true);
+	  	  formprogramaCached[formprogramaCached.length-1].setAttribute("id", "tabla-" + (formprogramaCached.length-1));
+		  formprogramaSkeleton.style.display = 'block';
+		  formprogramaCached[formprogramaCached.length-1].querySelector("[name=nombre]").name = "nombre-0";
+		  formprogramaCached[formprogramaCached.length-1].querySelector("[name=beneficios]").name = "beneficios-0";
+		  document.getElementById("formprogramaTablaNumber").value = 0;
+		  formprogramaCached[formprogramaCached.length-1].querySelector("[name=nombre-0]").required = false;
+		  formprogramaCached[formprogramaCached.length-1].querySelector("[name=beneficios-0]").required = false;
+
+		  formcursoCached = [document.getElementById("tabla2-")];
+		  formcursoSkeleton = formcursoCached[0].cloneNode(true);
+	  	  formcursoCached[formcursoCached.length-1].setAttribute("id", "tabla2-" + (formcursoCached.length-1));
+		  formcursoSkeleton.style.display = 'block';
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=nombre]").name = "nombre2-0";
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=responsabilidad]").name = "responsabilidad-0";
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=ultimo_anio]").name = "ultimo año-0";
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=penultimo_anio]").name = "penultimo año-0";
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=antepenultimo_anio]").name = "antepenultimo año-0";
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=numero_participantes]").name = "numero de participantes-0";
+		  document.getElementById("formcursoTablaNumber").value = 0;
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=nombre2-0]").required = false;
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=responsabilidad-0]").required = false;
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=ultimo año-0]").required = false;
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=penultimo año-0]").required = false;
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=antepenultimo año-0]").required = false;
+		  formcursoCached[formcursoCached.length-1].querySelector("[name=numero de participantes-0]").required = false;
+		});
+		function addformprograma(){
+			formprogramaCached.push(formprogramaSkeleton.cloneNode(true));
+			formprogramaCached[formprogramaCached.length-1].setAttribute("id", "tabla-" + formprogramaCached.length);
+			formprogramaCached[formprogramaCached.length-1].querySelector("[name=nombre]").name = ("nombre-" + (formprogramaCached.length-1));
+		    formprogramaCached[formprogramaCached.length-1].querySelector("[name=beneficios]").name = ("beneficios-" + (formprogramaCached.length-1));
+			if(formprogramaCached.length != 0)
+                document.querySelector("#formprogramaTablaNumber").before(formprogramaCached[formprogramaCached.length-1])
+			else
+                formprogramaCached[formprogramaCached.length-2].after(formprogramaCached[formprogramaCached.length-1])
+			document.getElementById("formprogramaTablaNumber").value = formprogramaCached.length
+		}
+		function removeformprograma(){
+			if(formprogramaCached.length != 0){
+			    formprogramaCached[formprogramaCached.length-1].remove();
+			    formprogramaCached.splice(formprogramaCached.length-1, 1);
+			    document.getElementById("formprogramaTablaNumber").value = formprogramaCached.length
+            }
+		}
+
+		function addformcurso(){
+			formcursoCached.push(formcursoSkeleton.cloneNode(true));
+			formcursoCached[formcursoCached.length-1].setAttribute("id", "tabla2-" + formcursoCached.length);
+			formcursoCached[formcursoCached.length-1].querySelector("[name=nombre]").name = ("nombre2-" + (formcursoCached.length-1));
+		    formcursoCached[formcursoCached.length-1].querySelector("[name=responsabilidad]").name = ("responsabilidad-" + (formcursoCached.length-1));
+			formcursoCached[formcursoCached.length-1].querySelector("[name=ultimo_anio]").name = ("ultimo año-" + (formcursoCached.length-1));
+		    formcursoCached[formcursoCached.length-1].querySelector("[name=penultimo_anio]").name = ("penultimo año-" + (formcursoCached.length-1));
+		    formcursoCached[formcursoCached.length-1].querySelector("[name=antepenultimo_anio]").name = ("antepenultimo año-" + (formcursoCached.length-1));
+		    formcursoCached[formcursoCached.length-1].querySelector("[name=numero_participantes]").name = ("numero de participantes-" + (formcursoCached.length-1));
+		    formcursoCached[formcursoCached.length-2].after(formcursoCached[formcursoCached.length-1])
+            if(formcursoCached.length != 0)
+                document.querySelector("#formcursoTablaNumber").before(formcursoCached[formcursoCached.length-1])
+			else
+                formcursoCached[formcursoCached.length-2].after(formcursoCached[formcursoCached.length-1])
+			document.getElementById("formcursoTablaNumber").value = formcursoCached.length
+		}
+		function removeformcurso(){
+			if(formcursoCached.length != 0){
+			    formcursoCached[formcursoCached.length-1].remove();
+			    formcursoCached.splice(formcursoCached.length-1, 1);
+			    document.getElementById("formcursoTablaNumber").value = formcursoCached.length
+            }
+		}
+	</script>
+
+	<h2>Inicializar cursos</h2>
+
+	<form action="/Cursos/Agregar" method="post" id="cursos">
+		<fieldset>
+			{% csrf_token %}
+			<label>¿Existe un plan permanente de superación académica para el personal académico de tiempo completo que esté aprobado por la máxima autoridad personal o colegiada de la institución?</label><br>
+			<input type="radio" onclick="javascript:yesnoCheck(); "name="{{form.hay_plan_permanente_superacion.name}}" value=true required="true" id="yesCheck3">Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck(); "name="{{form.hay_plan_permanente_superacion.name}}" value=false required="true" id="noCheck3">No<br>
+            <!--INICIO PRIMERA TABLA -->
+            <table id="tabla-" style="display:none">
+                {{ formprograma.as_table}}
+            </table>
+			<input type="text" style="display:none" id="formprogramaTablaNumber" name="formprogramaTablaNumber">
+			<button style="display:none" id="formprogramaTablaBtn" onclick="javascript:addformprograma();" type="button">Agregar</button>
+			<button style="display:none" id="formprogramaTablaBtn2" onclick="javascript:removeformprograma();" type="button">Quitar</button>
+            <!--FIN PRIMERA TABLA -->
+
+            <label>¿Hay en la institución, unidad académica o carrera, programas para la actualización y superación del personal académico?</label></label><br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.hay_programas_superacion.name}}" value=true required="true" id="yesCheck4">Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.hay_programas_superacion.name}}" value=false required="true" id="noCheck4">No<br>
+            <!--INICIO SEGUNDA TABLA -->
+            <table id="tabla2-" style="display:none">
+                {{ formcurso.as_table}}
+            </table>
+			<input type="text" style="display:none" id="formcursoTablaNumber" name="formcursoTablaNumber">
+			<button style="display:none" id="formcursoTablaBtn" onclick="javascript:addformcurso();" type="button">Agregar</button>
+			<button style="display:none" id="formcursoTablaBtn2" onclick="javascript:removeformcurso();" type="button">Quitar</button>
+            <!--FIN SEGUNDA TABLA -->
+
+            <label>¿Existe alguna otra modalidad de apoyo al personal académico para su actualización y superación?</label></label><br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.hay_otra_modalidad.name}}" value=true id="yesCheck" required="true">Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.hay_otra_modalidad.name}}" value=false id="noCheck" required="true">No<br>
+
+			<div id="descripcion_modalidad" style="display:none">
+				<label>Descríbala brevemente</label><br>
+				<textarea name="{{form.descripcion_modalidad.name}}" form="cursos" id="descripcion_modalidad2"></textarea>
+			</div>
+
+            <label>¿Existe algún programa para la formación de profesores?</label><br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.hay_plan_formacion.name}}" value=true id="yesCheck2" required="true">Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.hay_plan_formacion.name}}" value=false id="noCheck2" required="true">No<br>
+
+            <div id="nivel_responsabilidad" style="display:none">
+				<label>Señale a qué nivel de responsabilidad se tiene:</label><br>
+                <select name="{{form.nivel_responsabilidad.name}}" form="cursos" id="nivel_responsabilidad2">
+                    <option value="Institucional">Institucional</option>
+                    <option value="Unidad academica">Unidad academica</option>
+                    <option value="Programa">Programa</option>
+                </select>
+                <br>
+                <label>Describa brevemente en qué consiste:</label><br>
+				<textarea name="{{form.descripcion_formacion.name}}" form="cursos" id="descripcion_formacion"></textarea>
+			</div>
+
+		</fieldset>
+		<button type="submit" name="Enviar">Enviar</button>
+	</form>
+
+</body>
+</html>

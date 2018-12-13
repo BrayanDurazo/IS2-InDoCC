@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Limpiar cursos</title>
+</head>
+<body>
+    <h2>Limpiar cursos</h2>
+
+	<form action="" method="post" id="cursos">
+        {% csrf_token %}
+        <fieldset disabled>
+			<label>¿Existe un plan permanente de superación académica para el personal académico de tiempo completo que esté aprobado por la máxima autoridad personal o colegiada de la institución?</label><br>
+			{% if desarrollo.hay_plan_permanente_superacion %}
+                <input type="radio" name="{{form.hay_plan_permanente_superacion.name}}" value=true required="true" checked="true">Si<br>
+			    <input type="radio" name="{{form.hay_plan_permanente_superacion.name}}" value=false required="true">No<br>
+            {% else %}
+                <input type="radio" name="{{form.hay_plan_permanente_superacion.name}}" value=true required="true">Si<br>
+			    <input type="radio" name="{{form.hay_plan_permanente_superacion.name}}" value=false required="true" checked="true">No<br>
+            {% endif %}
+            <!--INICIO PRIMERA TABLA-->
+            {% for obj in objs1  %}
+            <table id="tabla-" style="display: block;">
+                <tbody>
+                    <tr>
+                        <th><label for="id_nombre">Nombre:</label></th>
+                        <td><input type="text" name="nombre" maxlength="200" id="id_nombre" value="{{obj.nombre}}"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_beneficios">Beneficios: </label></th>
+                        <td><textarea name="beneficios" cols="40" rows="10">{{obj.beneficios}}</textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+            <!--FIN PRIMERA TABLA-->
+
+            <label>¿Hay en la institución, unidad académica o carrera, programas para la actualización y superación del personal académico?</label></label><br>
+            {% if desarrollo.hay_programas_superacion %}
+                <input type="radio" name="{{form.hay_programas_superacion.name}}" value=true required="true" checked="true">Si<br>
+			    <input type="radio" name="{{form.hay_programas_superacion.name}}" value=false required="true">No<br>
+            {% else %}
+                <input type="radio" name="{{form.hay_programas_superacion.name}}" value=true required="true">Si<br>
+			    <input type="radio" name="{{form.hay_programas_superacion.name}}" value=false required="true" checked="true">No<br>
+            {% endif %}
+            <!--INICIO SEGUNDA TABLA-->
+                {% for obj in objs2  %}
+                    <table id="tabla2-0" style="display: block;">
+                        <tbody>
+                            <tr>
+                                <th><label for="id_nombre">Nombre:</label></th>
+                                <td><input type="text" name="nombre2-0" maxlength="200" id="id_nombre" value="{{obj.nombre}}"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="id_responsabilidad">Responsabilidad:</label></th>
+                                <td>
+                                    <select name="responsabilidad-0" id="id_responsabilidad" >
+                                        {% if obj.responsabilidad == 'Institucional' %}
+                                            <option value="Institucional" selected="selected">Institucional</option>
+                                        {%else%}
+                                            <option value="Institucional" >Institucional</option>
+                                        {%endif%}
+                                        {% if obj.responsabilidad == 'Unidad academica' %}
+                                            <option value="Unidad academica" selected="selected">Unidad academica</option>
+                                        {%else%}
+                                            <option value="Unidad academica">Unidad academica</option>
+                                        {%endif%}
+                                        {% if obj.responsabilidad == 'Programa' %}
+                                            <option value="Programa" selected="selected">Programa</option>
+                                        {%else%}
+                                            <option value="Programa">Programa</option>
+                                        {%endif%}
+                                        {% if obj.responsabilidad == 'Externo' %}
+                                            <option value="Externo" selected="selected">Externo</option>
+                                        {%else%}
+                                            <option value="Externo">Externo</option>
+                                        {%endif%}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><label for="id_ultimo_anio">Ultimo anio:</label></th>
+                                <td><input type="number" name="ultimo año-0" id="id_ultimo_anio" value="{{obj.ultimo_anio}}"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="id_penultimo_anio">Penultimo anio:</label></th>
+                                <td><input type="number" name="penultimo año-0" id="id_penultimo_anio" value="{{obj.penultimo_anio}}"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="id_antepenultimo_anio">Antepenultimo anio:</label></th>
+                                <td><input type="number" name="antepenultimo año-0" id="id_antepenultimo_anio" value="{{obj.antepenultimo_anio}}"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="id_numero_participantes">Numero participantes:</label></th>
+                                <td><input type="number" name="numero de participantes-0" id="id_numero_participantes" value="{{obj.numero_participantes}}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+            <!--FIN SEGUNDA TABLA -->
+
+            <label>¿Existe alguna otra modalidad de apoyo al personal académico para su actualización y superación?</label></label><br>
+            {% if desarrollo.hay_otra_modalidad %}
+                <input type="radio" name="{{form.hay_otra_modalidad.name}}" value=true required="true" checked="true">Si<br>
+			    <input type="radio" name="{{form.hay_otra_modalidad.name}}" value=false required="true">No<br>
+            {% else %}
+                <input type="radio" name="{{form.hay_otra_modalidad.name}}" value=true required="true">Si<br>
+			    <input type="radio" name="{{form.hay_otra_modalidad.name}}" value=false required="true" checked="true">No<br>
+            {% endif %}
+
+            <label>Descríbala brevemente</label><br>
+            <textarea name="descripcion_modalidad">{{desarrollo.descripcion_modalidad}}</textarea><br>
+
+            <label>¿Existe algún programa para la formación de profesores?</label><br>
+            {% if desarrollo.hay_plan_formacion %}
+                <input type="radio" name="{{form.hay_plan_formacion.name}}" value=true required="true" checked="true">Si<br>
+			    <input type="radio" name="{{form.hay_plan_formacion.name}}" value=false required="true">No<br>
+            {% else %}
+                <input type="radio" name="{{form.hay_plan_formacion.name}}" value=true required="true">Si<br>
+			    <input type="radio" name="{{form.hay_plan_formacion.name}}" value=false required="true" checked="true">No<br>
+            {% endif %}
+
+            <div id="nivel_responsabilidad">
+				<label>Señale a qué nivel de responsabilidad se tiene:</label><br>
+                <select name="{{form.nivel_responsabilidad.name}}" id="nivel_responsabilidad2">
+                    {% if desarrollo.nivel_responsabilidad == 'Institucional' %}
+                        <option value="Institucional" selected="selected">Institucional</option>
+                    {%else%}
+                        <option value="Institucional" >Institucional</option>
+                    {%endif%}
+                    {% if desarrollo.nivel_responsabilidad == 'Unidad academica' %}
+                        <option value="Unidad academica" selected="selected">Unidad academica</option>
+                    {%else%}
+                        <option value="Unidad academica">Unidad academica</option>
+                    {%endif%}
+                    {% if desarrollo.nivel_responsabilidad == 'Programa' %}
+                        <option value="Programa" selected="selected">Programa</option>
+                    {%else%}
+                        <option value="Programa">Programa</option>
+                    {%endif %}
+                </select>
+                <br>
+                <label>Describa brevemente en qué consiste:</label><br>
+				<textarea name="descripcion_formacion">{{desarrollo.descripcion_formacion}}</textarea>
+			</div>
+
+		</fieldset>
+        <button type="submit" id="clean" name="_method" value="delete">Limpiar</button>
+	</form>
+
+</body>
+</html>

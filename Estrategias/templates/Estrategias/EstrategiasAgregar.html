@@ -8,10 +8,12 @@
 	<script>
 		function yesnoCheck() {
 			if (document.getElementById('yesCheck').checked || document.getElementById('yesCheck2').checked) {
-				document.getElementById('ifYes').style.visibility = 'visible';
+				document.getElementById('ifYes').style.display = 'block';
 				document.getElementById('textarea').required = true;
-			} else {
-				document.getElementById('ifYes').style.visibility = 'hidden';
+			}else{
+				document.getElementById('ifYes').style.display = 'none';
+				document.getElementById('textarea').value = '';
+                document.getElementById('textarea').required = false;
 			}
 		}
 	</script>
@@ -21,16 +23,15 @@
 	<form action="/Estrategias/Agregar" method="post" id="estrategia">
 		<fieldset>
 			{% csrf_token %}
-
-			<label>¿El programa cuenta con una estrategia para que todos los docentes que participan en él conozcan la relación, importancia y enfoque de todas y cada una de las asignaturas que lo forman para poder dar la orientación adecuada a la asignatura que imparten?:</label><br>
+            <label><b>A.4</b> ¿El programa cuenta con una estrategia para que todos los docentes que participan en él conozcan la relación, importancia y enfoque de todas y cada una de las asignaturas que lo forman para poder dar la orientación adecuada a la asignatura que imparten?:</label><br>
 			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_estrategia_asignaturas.name}}" value=true id="yesCheck" required="true"> Si<br>
 			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_estrategia_asignaturas.name}}" value=false id="noCheck" required="true"> No<br>
 
-			<label>¿El programa cuenta con al menos una estrategia, para promover que todos los docentes que se forman en posgrado, tenga relación con las necesidades del programa educativo, desarrollo de cuerpos académicos y líneas de investigación, de manera que se resuelvan las brechas académicas del programa?</label></label><br>
+            <label><b>A.5</b> ¿El programa cuenta con al menos una estrategia, para promover que todos los docentes que se forman en posgrado, tenga relación con las necesidades del programa educativo, desarrollo de cuerpos académicos y líneas de investigación, de manera que se resuelvan las brechas académicas del programa?</label></label><br>
 			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_estrategia_posgrado.name}}" value=true id="yesCheck2" required="true"> Si<br>
 			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_estrategia_posgrado.name}}" value=false id="noCheck2" required="true"> No<br>
 
-			<div id="ifYes" style="visibility:hidden">
+			<div id="ifYes" style="display:none">
 				<label>Describir en qué consisten la o las estrategias institucionales:</label><br>
 				<textarea name="{{form.Descripcion.name}}" form="estrategia" id="textarea"></textarea>
 			</div>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicializar Reclutamiento</title>
+</head>
+<body>
+    <script>
+		function yesnoCheck() {
+			if (document.getElementById('yesCheck').checked) {
+				document.getElementById('ifYes').style.display = 'block';
+				document.getElementById('textarea').required = true;
+			}else if(document.getElementById('noCheck').checked){
+				document.getElementById('ifYes').style.display = 'none';
+				document.getElementById('textarea').value = '';
+                document.getElementById('textarea').required = false;
+			}
+			if (document.getElementById('yesCheck2').checked) {
+			    document.getElementById('ifYes2').style.display = 'block';
+				document.getElementById('file').required = true;
+			}else if(document.getElementById('noCheck2').checked){
+			    document.getElementById('ifYes2').style.display = 'none';
+                document.getElementById('file').required = false;
+			}
+		}
+	</script>
+
+	<h2>1.1 Reclutamiento</h2>
+
+	<form action="/Procesos/AgregarReclutamiento" enctype="multipart/form-data" method="post">
+		<fieldset>
+			{% csrf_token %}
+            <label><b>1.1.1</b>¿Existe un proceso formal de reclutamiento del personal académico?:</label><br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Existe_proceso_formal.name}}" value=true id="yesCheck" required="true"> Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Existe_proceso_formal.name}}" value=false id="noCheck" required="true"> No<br>
+
+            <div id="ifYes" style="display:none">
+				<label>Describa de forma resumida los aspectos más importantes del proceso:</label><br>
+				<textarea name="{{form.Descripcion_Proceso.name}}" id="textarea"></textarea>
+			</div>
+
+            <label>¿Hay un reglamento de reclutamiento del personal académico?:</label><br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_reglamento.name}}" value=true id="yesCheck2" required="true"> Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_reglamento.name}}" value=false id="noCheck2" required="true"> No<br>
+            <div id="ifYes2" style="display:none">
+                <label>Proporcione una copia de el:</label><br>
+                <input type="file" name="evidencia" id="file">
+            </div>
+		</fieldset>
+
+		<button type="submit" name="Enviar">Enviar</button>
+	</form>
+
+</body>
+</html>

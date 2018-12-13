@@ -21,7 +21,7 @@
 		{% csrf_token %}
 
         <fieldset disabled id="fieldsetForm">
-            <label>¿El programa cuenta con una estrategia para que todos los docentes que participan en él conozcan la relación, importancia y enfoque de todas y cada una de las asignaturas que lo forman para poder dar la orientación adecuada a la asignatura que imparten?:</label><br>
+            <label><b>A.4</b> ¿El programa cuenta con una estrategia para que todos los docentes que participan en él conozcan la relación, importancia y enfoque de todas y cada una de las asignaturas que lo forman para poder dar la orientación adecuada a la asignatura que imparten?:</label><br>
             {% if estrategia.Hay_estrategia_asignaturas %}
                 <input type="radio" name="{{form.Hay_estrategia_asignaturas.name}}" value=true required="true" checked="true"> Si<br>
                 <input type="radio" name="{{form.Hay_estrategia_asignaturas.name}}" value=false required="true"> No<br>
@@ -30,7 +30,7 @@
                 <input type="radio" name="{{form.Hay_estrategia_asignaturas.name}}" value=false required="true" checked="true"> No<br>
             {% endif %}
 
-            <label>¿El programa cuenta con al menos una estrategia, para promover que todos los docentes que se forman en posgrado, tenga relación con las necesidades del programa educativo, desarrollo de cuerpos académicos y líneas de investigación, de manera que se resuelvan las brechas académicas del programa?</label></input><br>
+            <label><b>A.5</b> ¿El programa cuenta con al menos una estrategia, para promover que todos los docentes que se forman en posgrado, tenga relación con las necesidades del programa educativo, desarrollo de cuerpos académicos y líneas de investigación, de manera que se resuelvan las brechas académicas del programa?</label></label><br>
             {% if estrategia.Hay_estrategia_posgrado %}
                 <input type="radio" name="{{form.Hay_estrategia_posgrado.name}}" value=true required="true" checked="true"> Si<br>
                 <input type="radio" name="{{form.Hay_estrategia_posgrado.name}}" value=false required="true"> No<br>

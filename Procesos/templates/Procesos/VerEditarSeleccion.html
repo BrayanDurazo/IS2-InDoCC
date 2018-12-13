@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver/Editar Seleccion</title>
+</head>
+<body>
+    <script>
+		function edit() {
+            document.getElementById('fieldsetForm').disabled = false;
+            document.getElementById('title').innerText="Editar Seleccion";
+            document.getElementById('editB').hidden = true;
+            document.getElementById('visionB').style.display = 'none';
+            document.getElementById('submit').style.display = 'block';
+		}
+		function yesnoCheck() {
+			if (document.getElementById('yesCheck').checked) {
+				document.getElementById('ifYes').style.display = 'block';
+				document.getElementById('textarea').required = true;
+			}else if(document.getElementById('noCheck').checked){
+				document.getElementById('ifYes').style.display = 'none';
+				document.getElementById('textarea').value = '';
+                document.getElementById('textarea').required = false;
+			}
+			if (document.getElementById('yesCheck2').checked) {
+			    document.getElementById('ifYes2').style.display = 'block';
+				document.getElementById('file').required = true;
+			}else if(document.getElementById('noCheck2').checked){
+			    document.getElementById('ifYes2').style.display = 'none';
+                document.getElementById('file').required = false;
+			}
+		}
+	</script>
+
+
+    <h1 id="title">Ver Seleccion</h1>
+	<form form action="/Procesos/VerEditarSeleccion" enctype="multipart/form-data" method="post">
+		{% csrf_token %}
+
+        <fieldset disabled id="fieldsetForm">
+            <label><b>1.2.1</b>¿Existe un proceso formal de ingreso del personal académico?::</label><br>
+            {% if proceso.Existe_proceso_formal %}
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Existe_proceso_formal.name}}" value=true id="yesCheck" required="true" checked="true"> Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Existe_proceso_formal.name}}" value=false id="noCheck" required="true"> No<br>
+            {% else %}
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Existe_proceso_formal.name}}" value=true id="yesCheck" required="true"> Si<br>
+			<input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Existe_proceso_formal.name}}" value=false id="noCheck" required="true" checked="true"> No<br>
+            {% endif %}
+
+            <div id="ifYes" style="display:none">
+				<label>Describa de forma resumida los aspectos más importantes del proceso:</label><br>
+				<textarea name="{{form.Descripcion_Proceso.name}}" id="textarea">{{proceso.Descripcion_Proceso}}</textarea>
+			</div>
+
+            <label>¿Hay un reglamento de ingreso del personal académico?:</label><br>
+            {% if proceso.Hay_reglamento %}
+                <input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_reglamento.name}}" value=true id="yesCheck2" required="true" checked="true"> Si<br>
+                <input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_reglamento.name}}" value=false id="noCheck2" required="true"> No<br>
+            {% else %}
+                <input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_reglamento.name}}" value=true id="yesCheck2" required="true"> Si<br>
+                <input type="radio" onclick="javascript:yesnoCheck();" name="{{form.Hay_reglamento.name}}" value=false id="noCheck2" required="true" checked="true"> No<br>
+            {% endif %}
+            <div id="visionB" style="display:block">
+                {% if proceso.evidencia.name %}
+                    <output id="fileOut">Evidencia Arichivada: {{ proceso.evidencia }}</output>
+                {% else %}
+                    <output id="fileOut">Evidencia Arichivada: Ninguna.</output>
+                {% endif %}
+            </div>
+            <div  id="ifYes2" style="display:none">
+                <label>Proporcione una copia de el:</label><br>
+                <input type="file" name="evidencia" id="file">
+            </div>
+        </fieldset>
+        <button type="submit" name="Enviar" id="submit" style="display:none">Enviar</button>
+        <button type="button" onclick="javascript:edit();" name="Editar" id="editB">Editar</button>
+	</form>
+</body>
+</html>
